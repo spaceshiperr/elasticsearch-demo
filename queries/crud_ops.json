@@ -1,0 +1,65 @@
+GET _cluster/health
+
+GET _nodes/stats
+
+// create an index
+PUT favorite_candy
+
+
+// create doc using POST with auto generated id
+POST favorite_candy/_doc
+{
+    "firstname": "dinara",
+    "candy": "soft licorice"
+}
+
+// create doc using PUT when you have ids
+PUT favorite_candy/_doc/1
+{
+    "firstname": "joanna",
+    "candy": "skittles"
+}
+
+PUT favorite_candy/_doc/2
+{
+    "firstname": "thomas",
+    "candy": "alyonka"
+}
+
+PUT favorite_candy/_doc/3
+{
+    "firstname": "kim",
+    "candy": "mars"
+}
+
+// read document with id=1 from index "favorite candy"
+GET favorite_candy/_doc/1
+
+// update the doc with id=1, version 2
+PUT favorite_candy/_doc/1
+{
+    "firstname": "sally",
+    "candy": "snickers"
+}
+
+// create document which doesnt override if it exists already, throws an error
+PUT favorite_candy/_create/1
+{
+    "firstname": "kris",
+    "candy": "milky way"
+}
+
+// update some fields of an existing document
+POST favorite_candy/_update/1
+{
+    "doc": {
+        "candy": "M&Ms"
+    }
+}
+
+GET favorite_candy/_doc/3
+
+// delete a document
+DELETE favorite_candy/_doc/3
+
+GET favorite_candy/_doc/3
