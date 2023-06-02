@@ -1,0 +1,94 @@
+// import the news headlines index
+
+// informations about all documents of the index
+GET news_headlines/_search
+
+// get the exact total numbers of hits
+GET news_headlines/_search
+{
+    "track_total_hits": true
+}
+
+// search for documents within a time range using query search
+GET news_headlines/_search
+{
+    "query": {
+        "range": {
+            "date": {
+                "gte": "2015-06-20",
+                "lte": "2015-09-22"
+            }
+        }
+    }
+}
+
+// get the list of the categories using aggregation search
+GET news_headlines/_search
+{
+    "aggs":  {
+        "by_category": {
+            "terms": {
+                "field": "category",
+                "size": "100"
+            }
+        }
+    }
+}
+
+// use both query and aggregation searches
+GET news_headlines/_search
+{
+    "query": {
+        "match": {
+            "category": "ENTERTAINMENT"
+        }
+    },
+    "aggs": {
+        "popular_in_entertainmet": {
+            "significant_text": {
+                "field": "headline"
+            }
+        }
+    }
+}
+
+// match by default uses OR logic, better for recall
+GET news_headlines/_search
+{
+    "query": {
+        "match": {
+            "headline": {
+                "query": "Khloe Kardashian Kendall Jenner"
+            }
+        }
+    }
+}
+
+// to increase precision put operator AND
+GET news_headlines/_search
+{
+    "query": {
+        "match": {
+            "headline": {
+                "query": "Khloe Kardashian Kendall Jenner",
+                "operator": "and"
+            }
+        }
+    }
+}
+
+// adding minimum should match (search terms) to find middle ground
+GET news_headlines/_search
+{
+    "query": {
+        "match": {
+            "headline": {
+                "query": "Khloe Kardashian Kendall Jenner",
+                "minimum_should_match": 3
+            }
+        }
+    }
+}
+
+// delete an index
+DELETE news_headlines
