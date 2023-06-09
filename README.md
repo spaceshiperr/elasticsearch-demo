@@ -13,3 +13,5 @@ installation instructions that worked for me:
 - after successful login go to the left menu -> managment -> dev tools
 
 if anything goes wrong, try reinstalling elasticsearch/kibana by deleting the folder and unziping the acrhive again
+
+[Tutorial info from Lisa](https://github.com/LisaHJung/Beginners-Crash-Course-to-Elastic-Stack-Series-Table-of-Contents)
